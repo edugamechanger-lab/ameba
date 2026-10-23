@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дело № 15 — Исчезновение культуры амёбы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #1b2420;
+    --bg-2: #243028;
+    --paper: #f1e7cf;
+    --paper-2: #e8dbbb;
+    --paper-dark: #d9c99d;
+    --ink: #2a2418;
+    --ink-soft: #5a4e38;
+    --red: #a63d2a;
+    --red-soft: #c25a44;
+    --brass: #b8915a;
+    --brass-light: #d4b27a;
+    --green: #3d5a3a;
+    --green-dark: #2a3f28;
+  }
+  html, body {
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at top, #2a3a2e 0%, var(--bg) 60%),
+      repeating-linear-gradient(45deg, #1a2320 0px, #1a2320 2px, #1d2723 2px, #1d2723 4px);
+    background-attachment: fixed;
+  }
+  .screen { display: none; min-height: 100vh; padding: 20px; }
+  .screen.active { display: block; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== INTRO ===== */
+  #intro {
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, #2a3a2e 0%, #0f1613 100%);
+  }
+  .case-folder {
+    max-width: 720px; width: 100%;
+    background: linear-gradient(135deg, #8b6f47 0%, #6b5335 100%);
+    border-radius: 6px;
+    padding: 50px 45px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    border: 1px solid #4a3a22;
+  }
+  .case-folder::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 8px; background: #3d2e1a; border-radius: 0 0 4px 4px;
+  }
+  .case-label {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 30px 35px;
+    font-family: 'Libre Baskerville', serif;
+    border: 1px solid var(--paper-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: rotate(-0.5deg);
+    position: relative;
+  }
+  .case-label::before {
+    content: 'СЕКРЕТНО'; position: absolute; top: 15px; right: 20px;
+    color: var(--red); font-family: 'Special Elite', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    border: 2px solid var(--red); padding: 2px 8px;
+    transform: rotate(3deg); opacity: 0.85;
+  }
+  .case-number {
+    font-family: 'Special Elite', monospace;
+    font-size: 13px; color: var(--ink-soft);
+    letter-spacing: 3px; margin-bottom: 8px;
+  }
+  .case-title {
+    font-size: 32px; font-weight: 700; line-height: 1.2;
+    margin-bottom: 20px; color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 15px;
+  }
+  .case-brief {
+    font-size: 16px; line-height: 1.7; color: var(--ink);
+    margin-bottom: 25px;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+  }
+  .case-meta {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-family: 'Special Elite', monospace;
+    font-size: 12px; color: var(--ink-soft);
+    margin-bottom: 25px;
+    padding-top: 15px; border-top: 1px dashed var(--ink-soft);
+  }
+  .case-meta span strong { color: var(--ink); display: block; font-size: 11px; letter-spacing: 1px; }
+  .btn-start {
+    display: block; width: 100%;
+    background: var(--red); color: var(--paper);
+    border: none; padding: 18px 30px;
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 0 #7a2a1c, 0 6px 15px rgba(0,0,0,0.3);
+  }
+  .btn-start:hover { background: var(--red-soft); transform: translateY(-1px); box-shadow: 0 5px 0 #7a2a1c, 0 8px 20px rgba(0,0,0,0.4); }
+  .btn-start:active { transform: translateY(2px); box-shadow: 0 2px 0 #7a2a1c; }
+
+  /* ===== INVESTIGATION ===== */
+  .inv-header {
+    max-width: 1200px; margin: 0 auto 25px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 15px;
+    padding: 15px 25px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(184,145,90,0.2);
+    border-radius: 4px;
+  }
+  .inv-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 20px; color: var(--brass-light);
+  }
+  .inv-title small { display: block; font-size: 11px; color: var(--paper-dark); letter-spacing: 2px; font-family: 'Special Elite', monospace; margin-bottom: 4px; }
+  .progress-bar {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Special Elite', monospace;
+    font-size: 13px; color: var(--paper-dark);
+  }
+  .progress-dots { display: flex; gap: 5px; }
+  .progress-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(241,231,207,0.15);
+    border: 1px solid rgba(241,231,207,0.3);
+    transition: all 0.3s;
+  }
+  .progress-dots span.found { background: var(--brass); border-color: var(--brass-light); box-shadow: 0 0 8px rgba(184,145,90,0.5); }
+
+  .inv-layout {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 340px;
+    gap: 25px;
+  }
+  @media (max-width: 900px) { .inv-layout { grid-template-columns: 1fr; } }
+
+  /* Desk */
+  .desk {
+    background:
+      linear-gradient(135deg, #3d2e1a 0%, #2a1f12 100%);
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid #1a1208;
+    position: relative;
+  }
+  .desk::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0px, transparent 40px, rgba(0,0,0,0.05) 40px, rgba(0,0,0,0.05) 41px);
+    pointer-events: none; border-radius: 6px;
+  }
+  .desk-title {
+    font-family: 'Libre Baskerville', serif;
+    color: var(--brass-light); font-size: 14px;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(184,145,90,0.3);
+    position: relative; z-index: 1;
+  }
+  .materials {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px; position: relative; z-index: 1;
+  }
+  .material {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    min-height: 160px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .material:hover { transform: translateY(-4px) rotate(0deg); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+  .material:nth-child(odd) { transform: rotate(-0.8deg); }
+  .material:nth-child(even) { transform: rotate(0.6deg); }
+  .material:nth-child(3n) { transform: rotate(-0.3deg); }
+  .material:hover { transform: translateY(-4px) rotate(0deg) !important; }
+  .material.done::after {
+    content: 'ИЗУЧЕНО'; position: absolute; top: 10px; right: 10px;
+    color: var(--green-dark); font-family: 'Special Elite', monospace;
+    font-size: 10px; letter-spacing: 1px;
+    border: 1.5px solid var(--green-dark); padding: 2px 6px;
+    transform: rotate(-8deg); opacity: 0.8;
+  }
+
+  /* Material types */
+  .mat-journal { background: linear-gradient(135deg, #f1e7cf 0%, #e4d5a8 100%); border-left: 4px solid var(--red); }
+  .mat-journal .mat-icon { color: var(--red); }
+  .mat-microscope { background: linear-gradient(135deg, #e8e4d8 0%, #d4cfc0 100%); border-left: 4px solid #3a5a6a; }
+  .mat-microscope .mat-icon { color: #3a5a6a; }
+  .mat-sample { background: linear-gradient(135deg, #f4ead5 0%, #e0d3a8 100%); border-left: 4px solid var(--brass); }
+  .mat-sample .mat-icon { color: var(--brass); }
+  .mat-feed { background: linear-gradient(135deg, #efe3c4 0%, #dccf9f 100%); border-left: 4px solid var(--green); }
+  .mat-feed .mat-icon { color: var(--green); }
+  .mat-witness { background: linear-gradient(135deg, #f6ecd2 0%, #e5d8b0 100%); border-left: 4px solid #6a4a2a; }
+  .mat-witness .mat-icon { color: #6a4a2a; }
+
+  .mat-icon { font-size: 28px; margin-bottom: 10px; }
+  .mat-title { font-family: 'Libre Baskerville', serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+  .mat-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.5; flex-grow: 1; }
+  .mat-tag {
+    display: inline-block; margin-top: 10px;
+    font-family: 'Special Elite', monospace; font-size: 10px;
+    letter-spacing: 1px; color: var(--ink-soft);
+    padding: 2px 6px; background: rgba(0,0,0,0.06);
+    border-radius: 2px;
+  }
+
+  /* Board */
+  .board {
+    background: linear-gradient(135deg, #2a1f12 0%, #1a1208 100%);
+    border-radius: 6px;
+    padding: 22px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid #0f0a04;
+    position: sticky; top: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  .board::-webkit-scrollbar { width: 6px; }
+  .board::-webkit-scrollbar-track { background: transparent; }
+  .board::-webkit-scrollbar-thumb { background: var(--brass); border-radius: 3px; }
+
+  .board-title {
+    font-family: 'Libre Baskerville', serif;
+    color: var(--brass-light); font-size: 13px;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 15px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(184,145,90,0.3);
+  }
+  .board-section { margin-bottom: 20px; }
+  .board-section h4 {
+    font-family: 'Special Elite', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--paper-dark); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .version {
+    background: rgba(241,231,207,0.08);
+    border: 1px solid rgba(241,231,207,0.15);
+    padding: 10px 12px; margin-bottom: 8px;
+    font-size: 13px; color: var(--paper);
+    border-radius: 3px;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .version.cleared {
+    background: rgba(61,90,58,0.2);
+    border-color: var(--green);
+    color: var(--paper-dark);
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }
+  .version.cleared::before {
+    content: '×'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--red); font-size: 18px; font-weight: bold;
+  }
+  .version.confirmed {
+    background: rgba(184,145,90,0.25);
+    border-color: var(--brass);
+    color: var(--brass-light);
+    font-weight: 600;
+  }
+  .version.confirmed::before {
+    content: '✓'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--brass-light); font-size: 18px; font-weight: bold;
+  }
+  .version-label {
+    font-family: 'Special Elite', monospace;
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--paper-dark); display: block; margin-bottom: 3px;
+  }
+
+  .clue-list { display: flex; flex-direction: column; gap: 6px; }
+  .clue-item {
+    background: rgba(241,231,207,0.05);
+    border-left: 3px solid var(--brass);
+    padding: 6px 10px;
+    font-size: 12px; color: var(--paper);
+    border-radius: 0 3px 3px 0;
+    animation: slideIn 0.4s ease;
+  }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+  .clue-empty {
+    font-size: 12px; color: var(--paper-dark);
+    font-style: italic; padding: 8px 10px;
+    border-left: 3px solid rgba(241,231,207,0.2);
+  }
+
+  .btn-hypothesis {
+    width: 100%;
+    background: var(--red); color: var(--paper);
+    border: none; padding: 14px;
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 3px 0 #7a2a1c;
+  }
+  .btn-hypothesis:hover:not(:disabled) { background: var(--red-soft); transform: translateY(-1px); }
+  .btn-hypothesis:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    align-items: center; justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
+  .modal {
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 640px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    position: relative;
+    padding: 35px;
+  }
+  .modal::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--red);
+  }
+  .modal-close {
+    position: absolute; top: 15px; right: 15px;
+    background: none; border: none;
+    font-size: 24px; color: var(--ink-soft);
+    cursor: pointer; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { background: rgba(0,0,0,0.1); color: var(--ink); }
+
+  .modal-tag {
+    font-family: 'Special Elite', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--red); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .modal-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 24px; font-weight: 700;
+    margin-bottom: 18px; color: var(--ink);
+    padding-bottom: 12px; border-bottom: 2px solid var(--ink);
+  }
+  .modal-body { font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+  .modal-body p { margin-bottom: 12px; }
+  .modal-body strong { color: var(--red); font-weight: 700; }
+
+  .document-paper {
+    background: #faf3dc;
+    border: 1px solid var(--paper-dark);
+    padding: 20px;
+    font-family: 'Special Elite', monospace;
+    font-size: 14px; line-height: 1.8;
+    margin: 15px 0;
+    box-shadow: inset 0 0 20px rgba(139,111,71,0.1);
+    position: relative;
+  }
+  .document-paper::before {
+    content: ''; position: absolute; top: 0; left: 30px;
+    width: 2px; height: 100%; background: rgba(166,61,42,0.2);
+  }
+  .document-paper .line { margin-bottom: 4px; }
+  .document-paper .highlight { background: rgba(166,61,42,0.15); padding: 1px 4px; }
+
+  .question {
+    background: rgba(0,0,0,0.04);
+    padding: 15px 18px;
+    border-left: 3px solid var(--red);
+    margin: 18px 0;
+    font-weight: 600;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; }
+  .option {
+    background: #faf3dc;
+    border: 1.5px solid var(--paper-dark);
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    border-radius: 2px;
+  }
+  .option:hover { background: var(--paper-2); border-color: var(--brass); transform: translateX(3px); }
+  .option.selected { background: var(--brass-light); border-color: var(--brass); color: var(--ink); }
+  .option.correct { background: #c4d8b4; border-color: var(--green-dark); }
+  .option.wrong { background: #e8c4b8; border-color: var(--red); }
+
+  .feedback {
+    padding: 15px 18px;
+    margin: 15px 0;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback.show { display: block; animation: slideIn 0.4s; }
+  .feedback.success {
+    background: rgba(61,90,58,0.15);
+    border: 1px solid var(--green);
+    color: var(--green-dark);
+  }
+  .feedback.error {
+    background: rgba(166,61,42,0.1);
+    border: 1px solid var(--red);
+    color: var(--red);
+  }
+  .feedback-title {
+    font-family: 'Special Elite', monospace;
+    font-size: 13px; letter-spacing: 2px;
+    margin-bottom: 6px; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .btn-action {
+    background: var(--ink); color: var(--paper);
+    border: none; padding: 12px 24px;
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+    margin-top: 10px;
+  }
+  .btn-action:hover { background: var(--red); }
+  .btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Sample comparison */
+  .samples-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 12px; margin: 15px 0;
+  }
+  @media (max-width: 500px) { .samples-grid { grid-template-columns: 1fr; } }
+  .sample-card {
+    background: #faf3dc;
+    border: 1.5px solid var(--paper-dark);
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 3px;
+  }
+  .sample-card:hover { border-color: var(--brass); transform: translateY(-2px); }
+  .sample-card.selected { border-color: var(--brass); background: var(--brass-light); }
+  .sample-card.correct { border-color: var(--green-dark); background: #c4d8b4; }
+  .sample-card.wrong { border-color: var(--red); background: #e8c4b8; }
+  .sample-letter {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--red); margin-bottom: 6px;
+  }
+  .sample-desc { font-size: 13px; line-height: 1.5; color: var(--ink); }
+
+  /* Microscope view */
+  .microscope-view {
+    background: radial-gradient(circle at center, #f5ecd0 0%, #d4c99d 70%, #8b7a4a 100%);
+    border: 3px solid #2a2418;
+    border-radius: 50%;
+    width: 200px; height: 200px;
+    margin: 20px auto;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .microscope-object {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 35% 35%, #e8d8a8 0%, #a89460 60%, #6b5830 100%);
+    border-radius: 50%;
+    border: 2px solid #5a4820;
+    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  /* Hypothesis */
+  .hypothesis-versions { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; }
+  .hypothesis-version {
+    background: #faf3dc;
+    border: 1.5px solid var(--paper-dark);
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    border-radius: 2px;
+  }
+  .hypothesis-version:hover { border-color: var(--brass); }
+  .hypothesis-version.selected { background: var(--brass-light); border-color: var(--brass); font-weight: 600; }
+
+  .evidence-pool {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(0,0,0,0.04);
+    border-radius: 3px;
+    min-height: 60px;
+  }
+  .evidence-chip {
+    background: var(--paper-2);
+    border: 1px solid var(--paper-dark);
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+    font-family: 'Special Elite', monospace;
+  }
+  .evidence-chip:hover { background: var(--brass-light); }
+  .evidence-chip.selected { background: var(--brass); color: var(--paper); border-color: var(--brass); }
+
+  /* Final */
+  #final { padding: 40px 20px; }
+  .final-container {
+    max-width: 820px; margin: 0 auto;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 50px 45px;
+    border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .final-stamp {
+    position: absolute; top: 30px; right: 30px;
+    color: var(--red); font-family: 'Special Elite', monospace;
+    font-size: 14px; letter-spacing: 3px;
+    border: 3px double var(--red); padding: 6px 14px;
+    transform: rotate(-8deg); opacity: 0.85;
+  }
+  .final-tag {
+    font-family: 'Special Elite', monospace;
+    font-size: 12px; letter-spacing: 3px;
+    color: var(--red); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .final-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 36px; font-weight: 700;
+    margin-bottom: 25px; color: var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 15px;
+  }
+  .final-section { margin-bottom: 25px; }
+  .final-section h3 {
+    font-family: 'Special Elite', monospace;
+    font-size: 13px; letter-spacing: 2px;
+    color: var(--red); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .final-section p, .final-section li {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px; line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .final-section ul { list-style: none; padding-left: 0; }
+  .final-section li::before {
+    content: '—'; color: var(--red);
+    margin-right: 10px; font-weight: bold;
+  }
+  .final-education {
+    background: rgba(61,90,58,0.1);
+    border-left: 4px solid var(--green-dark);
+    padding: 20px 25px;
+    margin: 25px 0;
+  }
+  .final-education h3 { color: var(--green-dark); margin-bottom: 12px; }
+  .final-education li::before { color: var(--green-dark); }
+  .btn-restart {
+    display: block; width: 100%; max-width: 300px; margin: 30px auto 0;
+    background: var(--ink); color: var(--paper);
+    border: none; padding: 16px 30px;
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-restart:hover { background: var(--red); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .case-folder { padding: 30px 25px; }
+    .case-title { font-size: 24px; }
+    .case-brief { font-size: 14px; }
+    .desk { padding: 20px; }
+    .materials { grid-template-columns: 1fr; }
+    .modal { padding: 25px 20px; }
+    .modal-title { font-size: 20px; }
+    .final-container { padding: 35px 25px; }
+    .final-title { font-size: 26px; }
+    .final-stamp { font-size: 11px; top: 20px; right: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO ===== -->
+<section id="intro" class="screen active">
+  <div class="case-folder">
+    <div class="case-label">
+      <div class="case-number">ДЕЛО № 15 / § 15</div>
+      <h1 class="case-title">Исчезновение культуры амёбы</h1>
+      <p class="case-brief">
+        В школьной биологической лаборатории накануне выставки «Микромир» обнаружена пропажа: чашка Петри с ценной культурой <em>Amoeba proteus</em> — пуста. На столе — мутная вода, зёрна риса и странный округлый объект под микроскопом. Свидетели дают противоречивые показания. Ваша задача — восстановить события и установить, что произошло на самом деле.
+      </p>
+      <div class="case-meta">
+        <span><strong>Предмет</strong>Биология · 8 класс</span>
+        <span><strong>Тема</strong>Простейшие · Корненожки</span>
+        <span><strong>Время</strong>25–35 минут</span>
+      </div>
+      <button class="btn-start" onclick="startGame()">Начать расследование</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVESTIGATION ===== -->
+<section id="investigation" class="screen">
+  <div class="inv-header">
+    <div class="inv-title">
+      <small>Дело № 15 / § 15</small>
+      Исчезновение культуры амёбы
+    </div>
+    <div class="progress-bar">
+      Улики: <span id="progressText">0 / 6</span>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+  </div>
+
+  <div class="inv-layout">
+    <div class="desk">
+      <div class="desk-title">Материалы на столе следователя</div>
+      <div class="materials" id="materialsGrid"></div>
+    </div>
+
+    <aside class="board">
+      <div class="board-title">Доска расследования</div>
+
+      <div class="board-section">
+        <h4>Версии</h4>
+        <div id="versionsList"></div>
+      </div>
+
+      <div class="board-section">
+        <h4>Улики</h4>
+        <div class="clue-list" id="cluesList">
+          <div class="clue-empty">Улики пока не найдены</div>
+        </div>
+      </div>
+
+      <button class="btn-hypothesis" id="btnHypothesis" onclick="openHypothesis()" disabled>
+        Выдвинуть версию
+      </button>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== FINAL ===== -->
+<section id="final" class="screen">
+  <div class="final-container">
+    <div class="final-stamp">ДЕЛО РАСКРЫТО</div>
+    <div class="final-tag">Заключение следователя</div>
+    <h1 class="final-title">Что произошло на самом деле</h1>
+
+    <div class="final-section">
+      <h3>Событие</h3>
+      <p>Культура <em>Amoeba proteus</em> не была украдена, выброшена и не погибла. Из-за неблагоприятных условий — падения температуры до +12 °C в выходные и отсутствия подкормки в течение трёх недель — амёба перешла в защитное состояние: <strong>цисту</strong>.</p>
+    </div>
+
+    <div class="final-section">
+      <h3>Причина</h3>
+      <p>Согласно учебному материалу, при наступлении холодов или пересыхании водоёма амёба перестаёт питаться, округляется и покрывается плотной защитной оболочкой. Именно это и произошло в чашке Петри.</p>
+    </div>
+
+    <div class="final-section">
+      <h3>Доказательства</h3>
+      <ul id="finalEvidence"></ul>
+    </div>
+
+    <div class="final-section">
+      <h3>Решение</h3>
+      <p>Достаточно создать благоприятные условия — температуру +20…+30 °C и питательную среду (зёрна риса для размножения бактерий) — и через несколько часов амёба покинет цисту, выпустит ложноножки и продолжит питаться и размножаться делением надвое.</p>
+    </div>
+
+    <div class="final-education">
+      <h3>Что помогло раскрыть дело</h3>
+      <ul>
+        <li>Знание о <strong>температурном оптимуме</strong> амёбы (+20…+30 °C) — позволило оценить условия в кабинете</li>
+        <li>Понимание процесса <strong>образования цисты</strong> — помогло идентифицировать округлый объект под микроскопом</li>
+        <li>Умение <strong>отличать амёбу</strong> от других простейших (раковинных корненожек, инфузорий) — по отсутствию постоянной формы тела и наличию ложноножек</li>
+        <li>Знание о <strong>питании амёбы</strong>: бактерии, размножающиеся на зёрнах риса, — объяснило роль питательной среды</li>
+        <li>Сопоставление показаний свидетелей с биологическими фактами — позволило исключить версии о краже и гибели</li>
+      </ul>
+    </div>
+
+    <button class="btn-restart" onclick="restartGame()">Начать дело заново</button>
+  </div>
+</section>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ===== GAME STATE =====
+const gameState = {
+  screen: 'intro',
+  clues: [],
+  tasksDone: {},
+  versions: {
+    petrova: 'unknown',  // laborant threw away
+    sidorov: 'unknown',  // student took
+    died: 'unknown',     // culture died
+    cyst: 'unknown'      // amoeba in cyst (correct)
+  },
+  hypothesisAttempts: 0,
+  selectedVersion: null,
+  selectedEvidence: []
+};
+
+// ===== MATERIALS DATA =====
+const materials = [
+  {
+    id: 'journal',
+    type: 'mat-journal',
+    icon: '📓',
+    title: 'Журнал лаборатории',
+    desc: 'Записи о температуре, кормлении и наблюдениях за культурой.',
+    tag: 'Документ',
+    task: 'journal'
+  },
+  {
+    id: 'microscope',
+    type: 'mat-microscope',
+    icon: '🔬',
+    title: 'Препарат под микроскопом',
+    desc: 'В пустой чашке Петри обнаружен странный округлый объект.',
+    tag: 'Образец',
+    task: 'microscope'
+  },
+  {
+    id: 'samples',
+    type: 'mat-sample',
+    icon: '🧫',
+    title: 'Коллекция образцов',
+    desc: 'Четыре чашки Петри с разными простейшими для сравнения.',
+    tag: 'Сравнение',
+    task: 'samples'
+  },
+  {
+    id: 'feed',
+    type: 'mat-feed',
+    icon: '🌾',
+    title: 'Следы кормления',
+    desc: 'На дне чашки — зёрна риса. Какова их роль?',
+    tag: 'Биология',
+    task: 'feed'
+  },
+  {
+    id: 'petrova',
+    type: 'mat-witness',
+    icon: '👩',
+    title: 'Лаборант Петрова',
+    desc: 'Показание свидетеля. Утверждает, что не трогала чашку.',
+    tag: 'Допрос',
+    task: 'petrova'
+  },
+  {
+    id: 'sidorov',
+    type: 'mat-witness',
+    icon: '👦',
+    title: 'Ученик Сидоров',
+    desc: 'Показание свидетеля. Интересовался культурой для проекта.',
+    tag: 'Допрос',
+    task: 'sidorov'
+  }
+];
+
+// ===== VERSIONS DATA =====
+const versions = [
+  { id: 'petrova', label: 'Версия А', text: 'Лаборант Петрова выбросила культуру, приняв её за испорченную' },
+  { id: 'sidorov', label: 'Версия Б', text: 'Ученик Сидоров унёс культуру для своего проекта' },
+  { id: 'died', label: 'Версия В', text: 'Культура погибла из-за неправильного ухода' },
+  { id: 'cyst', label: 'Версия Г', text: 'Амёба перешла в цисту и жива — нужно восстановить условия' }
+];
+
+// ===== TASKS =====
+const tasks = {
+  journal: {
+    title: 'Журнал лаборатории',
+    tag: 'Документ · Анализ записей',
+    content: `
+      <p>Перед вами последняя страница лабораторного журнала. Изучите записи и ответьте на вопрос.</p>
+      <div class="document-paper">
+        <div class="line"><strong>Дата:</strong> 15 сентября</div>
+        <div class="line"><strong>Наблюдение:</strong> культура активна, амёбы образуют ложноножки, захватывают бактерии.</div>
+        <div class="line"><strong>Температура в кабинете:</strong> +22 °C</div>
+        <div class="line"><strong>Подкормка:</strong> добавлены зёрна риса.</div>
+        <div class="line">— — —</div>
+        <div class="line"><strong>Дата:</strong> 28 сентября</div>
+        <div class="line"><strong>Подкормка:</strong> <span class="highlight">последняя. Далее — перерыв.</span></div>
+        <div class="line">— — —</div>
+        <div class="line"><strong>Дата:</strong> выходные 20–21 октября</div>
+        <div class="line"><strong>Примечание завхоза:</strong> <span class="highlight">отключали отопление на ремонт. В кабинете было около +12 °C.</span></div>
+        <div class="line">— — —</div>
+        <div class="line"><strong>Дата:</strong> 1 октября (сегодня)</div>
+        <div class="line"><strong>Статус:</strong> культура не обнаружена в активной форме.</div>
+      </div>
+      <div class="question">Вспомните: при какой температуре амёба протей чувствует себя комфортно?</div>
+    `,
+    options: [
+      { id: 'a', text: '+5…+10 °C — амёбы холодостойкие' },
+      { id: 'b', text: '+20…+30 °C — оптимальная температура', correct: true },
+      { id: 'c', text: '+37 °C — как температура тела хозяина' },
+      { id: 'd', text: 'Температура не имеет значения' }
+    ],
+    success: {
+      title: 'Запись проанализирована',
+      text: 'В выходные температура падала до <strong>+12 °C</strong> — значительно ниже оптимальных +20…+30 °C. Последняя подкормка была <strong>3 недели назад</strong>. Условия стали неблагоприятными. Амёба могла перейти в защитное состояние.'
+    },
+    clue: 'Температурный сбой'
+  },
+
+  microscope: {
+    title: 'Препарат под микроскопом',
+    tag: 'Образец · Идентификация',
+    content: `
+      <p>На дне пустой чашки Петри, в капле мутной воды, под микроскопом обнаружен одиночный объект.</p>
+      <div class="microscope-view">
+        <div class="microscope-object"></div>
+      </div>
+      <p><strong>Описание объекта:</strong> округлая форма, плотная оболочка, размеры около 0,1 мм. Ложноножки отсутствуют. Цитоплазма неподвижна.</p>
+      <div class="question">Что это за объект?</div>
+    `,
+    options: [
+      { id: 'a', text: 'Бактерия — возбудитель болезни' },
+      { id: 'b', text: 'Пищеварительная вакуоль амёбы' },
+      { id: 'c', text: 'Циста амёбы — защитная оболочка', correct: true },
+      { id: 'd', text: 'Ядро клетки' }
+    ],
+    success: {
+      title: 'Объект идентифицирован',
+      text: 'Это <strong>циста</strong> — плотная защитная оболочка, в которую амёба переходит при неблагоприятных условиях (холод, голод, пересыхание). Внутри цисты организм сохраняет жизнеспособность. <strong>Амёба не погибла — она спит.</strong>'
+    },
+    clue: 'Обнаружена циста'
+  },
+
+  samples: {
+    title: 'Коллекция образцов',
+    tag: 'Сравнение · Классификация',
+    content: `
+      <p>В шкафу лаборатории хранятся четыре чашки Петри с разными простейшими. Сравните их описания и определите, какой образец соответствует <strong>амёбе протей</strong>.</p>
+      <div class="samples-grid">
+        <div class="sample-card" data-id="A">
+          <div class="sample-letter">A</div>
+          <div class="sample-desc">Округлый объект с плотной оболочкой, без выступов. Размер 0,1 мм. Неподвижен.</div>
+        </div>
+        <div class="sample-card" data-id="B">
+          <div class="sample-letter">B</div>
+          <div class="sample-desc">Бесцветный студенистый комок до 0,5 мм. Не имеет постоянной формы тела. Образует ложноножки, медленно передвигается амёбоидным движением.</div>
+        </div>
+        <div class="sample-card" data-id="C">
+          <div class="sample-letter">C</div>
+          <div class="sample-desc">Одноклеточный организм в конусовидной плотной раковинке с отверстием. Через отверстие высовывает ложноножки. Размер 0,3 мм.</div>
+        </div>
+        <div class="sample-card" data-id="D">
+          <div class="sample-letter">D</div>
+          <div class="sample-desc">Овальный организм длиной до 1000 мкм. Всё тело покрыто ресничками, быстро и плавно передвигается. Имеет два ядра.</div>
+        </div>
+      </div>
+      <div class="question">Какой образец — амёба протей?</div>
+    `,
+    isSampleTask: true,
+    correctSample: 'B',
+    success: {
+      title: 'Образец идентифицирован',
+      text: 'Образец <strong>B</strong> — амёба протей. Ключевые признаки: <strong>бесцветный студенистый комок, не имеет постоянной формы тела, образует ложноножки</strong>. Образец A — циста, C — раковинная корненожка (арцелла или диффлюгия), D — инфузория-трубач.'
+    },
+    clue: 'Идентификация амёбы'
+  },
+
+  feed: {
+    title: 'Следы кормления',
+    tag: 'Биология · Питание',
+    content: `
+      <p>На дне чашки Петри обнаружены зёрна риса. В методической карточке указано: «Для поддержания культуры добавьте несколько неочищенных зёрен риса в охлаждённую кипячёную воду».</p>
+      <div class="question">Какую роль играют зёрна риса в культуре амёб?</div>
+    `,
+    options: [
+      { id: 'a', text: 'Прямая пища для амёб — амёбы питаются рисом', },
+      { id: 'b', text: 'Поддерживают кислотность воды', },
+      { id: 'c', text: 'Питательная среда для бактерий — а бактерии служат пищей амёбам', correct: true },
+      { id: 'd', text: 'Окрашивают воду для наблюдения' }
+    ],
+    success: {
+      title: 'Роль риса установлена',
+      text: 'Согласно лабораторной инструкции, вокруг зёрен риса образуются <strong>скопления бактерий</strong> — именно ими питаются амёбы путём внутриклеточного пищеварения. Отсутствие подкормки в течение 3 недель означает, что амёбы <strong>голодали</strong> — ещё одна причина перейти в цисту.'
+    },
+    clue: 'Нарушение питания'
+  },
+
+  petrova: {
+    title: 'Допрос: лаборант Петрова',
+    tag: 'Показание свидетеля',
+    content: `
+      <p><strong>Петрова И.С., лаборант:</strong></p>
+      <div class="document-paper">
+        <div class="line">— Я работаю в лаборатории пятый год и никогда не выбрасывала культуры без указания учителя. Чашку с амёбами я не трогала, она стояла на своём месте у микроскопа.</div>
+        <div class="line">— Но должна сообщить: в субботу и воскресенье <span class="highlight">отключали отопление на ремонт батарей</span>. Я в пятницу закрыла окно, но в кабинете было холодно — градусов 12, не больше. Я переживала за культуры, но думала, что за одну ночь ничего не случится.</div>
+        <div class="line">— Учитель биологии был в отпуске, поэтому я не стала его беспокоить.</div>
+      </div>
+      <div class="question">Сопоставьте показание с данными журнала. Правда ли, что в выходные было холодно?</div>
+    `,
+    options: [
+      { id: 'a', text: 'Нет, Петрова лжёт — в журнале нет записи о холоде' },
+      { id: 'b', text: 'Да, показание подтверждается: в журнале зафиксировано +12 °C в выходные', correct: true },
+      { id: 'c', text: 'Невозможно проверить — в журнале нет температурных данных' }
+    ],
+    success: {
+      title: 'Показание подтверждено',
+      text: 'Запись в журнале совпадает со словами Петровой: в выходные температура действительно падала до <strong>+12 °C</strong>. Петрова не трогала чашку и не выбрасывала культуру. <strong>Версия о том, что лаборант выбросил амёб, — опровергнута.</strong>'
+    },
+    clue: 'Показание Петровой',
+    clears: 'petrova'
+  },
+
+  sidorov: {
+    title: 'Допрос: ученик Сидоров',
+    tag: 'Показание свидетеля',
+    content: `
+      <p><strong>Сидоров К., ученик 8 «Б» класса:</strong></p>
+      <div class="document-paper">
+        <div class="line">— Я увлекаюсь биологией и хотел взять культуру амёб для своего проекта на школьную конференцию. Но только посмотреть, не уносить.</div>
+        <div class="line">— В прошлый четверг после уроков я заглянул в чашку Петри через микроскоп. Там была мутная вода и зёрна риса, <span class="highlight">а живых амёб я не увидел</span>. Подумал, что они все умерли от голода — подкормку давно не делали.</div>
+        <div class="line">— Я ничего не трогал и не уносил. Честно. Может, учитель потом сам убрал чашку?</div>
+      </div>
+      <div class="question">Сопоставьте показание с биологическими фактами. Мог ли Сидоров не увидеть амёб, если они живы?</div>
+    `,
+    options: [
+      { id: 'a', text: 'Нет, если амёбы живы — он обязан был их увидеть' },
+      { id: 'b', text: 'Да, мог: в неблагоприятных условиях амёбы переходят в цисту и становятся микроскопически малыми, неподвижными, с плотной оболочкой', correct: true },
+      { id: 'c', text: 'Сидоров лжёт — он точно унёс культуру' }
+    ],
+    success: {
+      title: 'Показание подтверждено',
+      text: 'Сидоров говорит правду: в неблагоприятных условиях (голод 3 недели + холод) амёбы действительно перешли в цисту и <strong>перестали быть заметными</strong> — они округлились, покрылись плотной оболочкой и перестали двигаться. <strong>Версия о краже — опровергнута.</strong>'
+    },
+    clue: 'Показание Сидорова',
+    clears: 'sidorov'
+  }
+};
+
+// ===== INIT =====
+function startGame() {
+  gameState.screen = 'investigation';
+  document.getElementById('intro').classList.remove('active');
+  document.getElementById('investigation').classList.add('active');
+  renderMaterials();
+  renderVersions();
+  renderProgress();
+  window.scrollTo(0, 0);
+}
+
+function renderMaterials() {
+  const grid = document.getElementById('materialsGrid');
+  grid.innerHTML = '';
+  materials.forEach(m => {
+    const done = gameState.tasksDone[m.task];
+    const el = document.createElement('div');
+    el.className = 'material ' + m.type + (done ? ' done' : '');
+    el.innerHTML = `
+      <div class="mat-icon">${m.icon}</div>
+      <div class="mat-title">${m.title}</div>
+      <div class="mat-desc">${m.desc}</div>
+      <div class="mat-tag">${m.tag}</div>
+    `;
+    el.onclick = () => openTask(m.task);
+    grid.appendChild(el);
+  });
+}
+
+function renderVersions() {
+  const list = document.getElementById('versionsList');
+  list.innerHTML = '';
+  versions.forEach(v => {
+    const status = gameState.versions[v.id];
+    const el = document.createElement('div');
+    el.className = 'version' + (status === 'cleared' ? ' cleared' : '') + (status === 'confirmed' ? ' confirmed' : '');
+    el.innerHTML = `<span class="version-label">${v.label}</span>${v.text}`;
+    list.appendChild(el);
+  });
+}
+
+function renderClues() {
+  const list = document.getElementById('cluesList');
+  if (gameState.clues.length === 0) {
+    list.innerHTML = '<div class="clue-empty">Улики пока не найдены</div>';
+  } else {
+    list.innerHTML = '';
+    gameState.clues.forEach(c => {
+      const el = document.createElement('div');
+      el.className = 'clue-item';
+      el.textContent = '• ' + c;
+      list.appendChild(el);
+    });
+  }
+}
+
+function renderProgress() {
+  const total = 6;
+  const found = gameState.clues.length;
+  document.getElementById('progressText').textContent = `${found} / ${total}`;
+  const dots = document.getElementById('progressDots');
+  dots.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    if (i < found) d.classList.add('found');
+    dots.appendChild(d);
+  }
+  document.getElementById('btnHypothesis').disabled = found < 3;
+}
+
+// ===== TASK MODAL =====
+function openTask(taskId) {
+  const task = tasks[taskId];
+  if (!task) return;
+
+  const modal = document.getElementById('modalContent');
+  let html = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-tag">${task.tag}</div>
+    <h2 class="modal-title">${task.title}</h2>
+    <div class="modal-body">${task.content}</div>
+  `;
+
+  if (task.isSampleTask) {
+    html += `<div class="options" id="optionsArea"></div>`;
+  } else {
+    html += `<div class="options" id="optionsArea">`;
+    task.options.forEach(opt => {
+      html += `<button class="option" data-id="${opt.id}" onclick="selectOption('${opt.id}')">${opt.text}</button>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `
+    <button class="btn-action" id="btnCheck" onclick="checkAnswer('${taskId}')" disabled>Проверить</button>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn-action" id="btnClose" onclick="closeModal()" style="display:none; background: var(--green-dark);">Закрыть и продолжить расследование</button>
+  `;
+
+  modal.innerHTML = html;
+
+  if (task.isSampleTask) {
+    const samples = modal.querySelectorAll('.sample-card');
+    samples.forEach(s => {
+      s.onclick = () => {
+        samples.forEach(x => x.classList.remove('selected'));
+        s.classList.add('selected');
+        document.getElementById('btnCheck').disabled = false;
+      };
+    });
+  }
+
+  document.getElementById('modalOverlay').classList.add('active');
+  window.currentTask = taskId;
+  window.selectedOption = null;
+}
+
+function selectOption(id) {
+  const opts = document.querySelectorAll('#optionsArea .option');
+  opts.forEach(o => o.classList.remove('selected'));
+  const el = document.querySelector(`#optionsArea .option[data-id="${id}"]`);
+  if (el) el.classList.add('selected');
+  window.selectedOption = id;
+  document.getElementById('btnCheck').disabled = false;
+}
+
+function checkAnswer(taskId) {
+  const task = tasks[taskId];
+  const feedback = document.getElementById('feedback');
+  let isCorrect = false;
+  let selectedId = null;
+
+  if (task.isSampleTask) {
+    const sel = document.querySelector('#optionsArea .sample-card.selected');
+    if (!sel) return;
+    selectedId = sel.dataset.id;
+    isCorrect = selectedId === task.correctSample;
+    const samples = document.querySelectorAll('#optionsArea .sample-card');
+    samples.forEach(s => {
+      s.onclick = null;
+      if (s.dataset.id === task.correctSample) s.classList.add('correct');
+      else if (s.classList.contains('selected') && !isCorrect) s.classList.add('wrong');
+    });
+  } else {
+    const opt = task.options.find(o => o.id === window.selectedOption);
+    if (!opt) return;
+    isCorrect = opt.correct;
+    const opts = document.querySelectorAll('#optionsArea .option');
+    opts.forEach(o => {
+      o.onclick = null;
+      const oid = o.dataset.id;
+      const original = task.options.find(x => x.id === oid);
+      if (original.correct) o.classList.add('correct');
+      else if (oid === window.selectedOption && !isCorrect) o.classList.add('wrong');
+    });
+  }
+
+  document.getElementById('btnCheck').style.display = 'none';
+
+  if (isCorrect) {
+    feedback.className = 'feedback success show';
+    feedback.innerHTML = `<div class="feedback-title">${task.success.title}</div><div>${task.success.text}</div>`;
+
+    if (!gameState.tasksDone[taskId]) {
+      gameState.tasksDone[taskId] = true;
+      if (!gameState.clues.includes(task.clue)) {
+        gameState.clues.push(task.clue);
+      }
+      if (task.clears) {
+        gameState.versions[task.clears] = 'cleared';
+      }
+      renderMaterials();
+      renderVersions();
+      renderClues();
+      renderProgress();
+    }
+  } else {
+    feedback.className = 'feedback error show';
+    feedback.innerHTML = `<div class="feedback-title">Ответ неверный</div><div>Изучите материал внимательнее и попробуйте снова. Подсказка: обратитесь к тексту § 15 учебника.</div>`;
+    setTimeout(() => {
+      document.getElementById('btnCheck').style.display = 'inline-block';
+      document.getElementById('btnCheck').disabled = false;
+      if (task.isSampleTask) {
+        const samples = document.querySelectorAll('#optionsArea .sample-card');
+        samples.forEach(s => {
+          s.classList.remove('selected', 'wrong');
+          s.onclick = () => {
+            samples.forEach(x => x.classList.remove('selected'));
+            s.classList.add('selected');
+            document.getElementById('btnCheck').disabled = false;
+          };
+        });
+      } else {
+        const opts = document.querySelectorAll('#optionsArea .option');
+        opts.forEach(o => {
+          o.classList.remove('selected', 'wrong', 'correct');
+          o.onclick = () => selectOption(o.dataset.id);
+        });
+        window.selectedOption = null;
+        document.getElementById('btnCheck').disabled = true;
+      }
+      feedback.classList.remove('show');
+    }, 2500);
+    return;
+  }
+
+  document.getElementById('btnClose').style.display = 'inline-block';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  window.currentTask = null;
+  window.selectedOption = null;
+}
+
+// ===== HYPOTHESIS =====
+function openHypothesis() {
+  const modal = document.getElementById('modalContent');
+  gameState.selectedVersion = null;
+  gameState.selectedEvidence = [];
+
+  let html = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-tag">Финальный этап</div>
+    <h2 class="modal-title">Выдвинуть версию</h2>
+    <div class="modal-body">
+      <p>На основе собранных улик выберите версию произошедшего и укажите <strong>минимум 3 улики</strong>, которые её подтверждают.</p>
+      <div class="question">Что произошло с культурой амёбы?</div>
+      <div class="hypothesis-versions" id="hypVersions">
+  `;
+  versions.forEach(v => {
+    html += `<button class="hypothesis-version" data-id="${v.id}" onclick="selectHypVersion('${v.id}')"><strong>${v.label}.</strong> ${v.text}</button>`;
+  });
+  html += `
+      </div>
+      <div class="question">Какие улики подтверждают вашу версию? (минимум 3)</div>
+      <div class="evidence-pool" id="evidencePool"></div>
+      <button class="btn-action" id="btnSubmitHyp" onclick="submitHypothesis()" disabled>Подтвердить версию</button>
+      <div class="feedback" id="hypFeedback"></div>
+      <button class="btn-action" id="btnCloseHyp" onclick="closeModal()" style="display:none; background: var(--green-dark);">Закрыть</button>
+    </div>
+  `;
+  modal.innerHTML = html;
+  renderEvidencePool();
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function renderEvidencePool() {
+  const pool = document.getElementById('evidencePool');
+  pool.innerHTML = '';
+  if (gameState.clues.length === 0) {
+    pool.innerHTML = '<div style="color: var(--ink-soft); font-size: 13px; font-style: italic;">Улики ещё не собраны</div>';
+    return;
+  }
+  gameState.clues.forEach(c => {
+    const chip = document.createElement('div');
+    chip.className = 'evidence-chip' + (gameState.selectedEvidence.includes(c) ? ' selected' : '');
+    chip.textContent = c;
+    chip.onclick = () => toggleEvidence(c);
+    pool.appendChild(chip);
+  });
+}
+
+function selectHypVersion(id) {
+  gameState.selectedVersion = id;
+  document.querySelectorAll('#hypVersions .hypothesis-version').forEach(b => {
+    b.classList.toggle('selected', b.dataset.id === id);
+  });
+  updateHypButton();
+}
+
+function toggleEvidence(c) {
+  const idx = gameState.selectedEvidence.indexOf(c);
+  if (idx >= 0) gameState.selectedEvidence.splice(idx, 1);
+  else gameState.selectedEvidence.push(c);
+  renderEvidencePool();
+  updateHypButton();
+}
+
+function updateHypButton() {
+  const btn = document.getElementById('btnSubmitHyp');
+  btn.disabled = !(gameState.selectedVersion && gameState.selectedEvidence.length >= 3);
+}
+
+function submitHypothesis() {
+  const fb = document.getElementById('hypFeedback');
+  gameState.hypothesisAttempts++;
+
+  const correctVersion = 'cyst';
+  const requiredEvidence = ['Температурный сбой', 'Обнаружена циста', 'Нарушение питания', 'Показание Петровой', 'Показание Сидорова'];
+  const correctEvidenceCount = gameState.selectedEvidence.filter(e => requiredEvidence.includes(e)).length;
+
+  if (gameState.selectedVersion !== correctVersion) {
+    fb.className = 'feedback error show';
+    let hint = '';
+    if (gameState.selectedVersion === 'petrova') hint = 'Показание Петровой подтверждено записью в журнале. Она не трогала чашку.';
+    else if (gameState.selectedVersion === 'sidorov') hint = 'Сидоров не трогал чашку — он лишь наблюдал. Его показание подтверждается биологией процесса.';
+    else if (gameState.selectedVersion === 'died') hint = 'Под микроскопом обнаружен живой объект — циста. Амёба не погибла, а перешла в защитное состояние.';
+    fb.innerHTML = `<div class="feedback-title">В версии есть противоречие</div><div>${hint} Продолжите расследование и проверьте улики ещё раз.</div>`;
+    return;
+  }
+
+  if (correctEvidenceCount < 3) {
+    fb.className = 'feedback error show';
+    fb.innerHTML = `<div class="feedback-title">Недостаточно доказательств</div><div>Версия верна, но выбранные улики не все её подтверждают. Выберите минимум 3 улики, непосредственно связанные с этой версией.</div>`;
+    return;
+  }
+
+  // SUCCESS
+  gameState.versions.cyst = 'confirmed';
+  renderVersions();
+  showFinal();
+}
+
+function showFinal() {
+  closeModal();
+  document.getElementById('investigation').classList.remove('active');
+  document.getElementById('final').classList.add('active');
+
+  const evList = document.getElementById('finalEvidence');
+  evList.innerHTML = '';
+  gameState.clues.forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = c;
+    evList.appendChild(li);
+  });
+
+  window.scrollTo(0, 0);
+  gameState.screen = 'final';
+}
+
+function restartGame() {
+  gameState.screen = 'intro';
+  gameState.clues = [];
+  gameState.tasksDone = {};
+  gameState.versions = { petrova: 'unknown', sidorov: 'unknown', died: 'unknown', cyst: 'unknown' };
+  gameState.hypothesisAttempts = 0;
+  gameState.selectedVersion = null;
+  gameState.selectedEvidence = [];
+
+  document.getElementById('final').classList.remove('active');
+  document.getElementById('investigation').classList.remove('active');
+  document.getElementById('intro').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modalOverlay') closeModal();
+});
+
+// ESC to close
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
